@@ -1,6 +1,7 @@
 package com.teambuganvilles.security.controller;
 
 import com.teambuganvilles.dto.Mensaje;
+import com.teambuganvilles.exceptions.UsuarioNotFoundException;
 import com.teambuganvilles.security.dto.JwtDto;
 import com.teambuganvilles.security.dto.LoginUsuario;
 import com.teambuganvilles.security.dto.NuevoUsuario;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -77,5 +79,19 @@ public class AuthController {
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
         return new ResponseEntity(jwtDto, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/usuario/{id}")
+    public void deleteUsuario(@PathVariable("id") final int id) {
+        usuarioService.deleteUsuario(id);
+    }
+
+    @PutMapping("/usuario/{id}")
+    public Usuario updateUsuario(@PathVariable("id") final int id, @RequestBody Usuario newUsuario) throws UsuarioNotFoundException {
+        return usuarioService.updateUsuario(id, newUsuario);
+    }
+    @GetMapping("/usuarios")
+    public Iterable<Usuario> getAllUsuarios() {
+        return usuarioService.getAllUsuario();
     }
 }

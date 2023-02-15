@@ -2,10 +2,12 @@ package com.teambuganvilles.service;
 
 
 import com.teambuganvilles.exceptions.VentasNotFoundException;
+import com.teambuganvilles.model.Usuario;
 import com.teambuganvilles.repository.VentasRepository;
 import com.teambuganvilles.model.Ventas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Optional;
 
@@ -46,4 +48,5 @@ public class VentasService {
             throw new VentasNotFoundException(id_venta);
         }
     }
+
 }
