@@ -4,6 +4,7 @@ import com.teambuganvilles.exceptions.DetalleVentaNotFoundException;
 import com.teambuganvilles.model.Detalle_Venta;
 import com.teambuganvilles.service.DetalleVenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -18,6 +19,7 @@ public class Detalle_VenController {
      * @param detalleVenta An object detalleVenta
      * @return The detalleVenta object saved
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/detalleVenta")
     public Detalle_Venta createDetalleVen(@RequestBody Detalle_Venta detalleVenta) {
         return detalleVenService.saveDetalleVenta(detalleVenta);
@@ -56,6 +58,7 @@ public class Detalle_VenController {
      * @param newDetalleVenta - The newDetalleVenta object updated
      * @return - The newDetalleVenta updated
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/detalleVenta/{id_dv}")
     public Detalle_Venta updateDetalleVenta(@PathVariable("id_dv") final int id_dv, @RequestBody Detalle_Venta newDetalleVenta) throws DetalleVentaNotFoundException {
         return detalleVenService.updateDetalleVenta(id_dv, newDetalleVenta);
@@ -66,6 +69,7 @@ public class Detalle_VenController {
      *
      * @param id_dv - The id of the detalleVenta to delete
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/detalleVenta/{id_dv}")
     public void deleteDetalleVenta(@PathVariable("id_dv") final int id_dv) {
         detalleVenService.deleteDetalleVenta(id_dv);

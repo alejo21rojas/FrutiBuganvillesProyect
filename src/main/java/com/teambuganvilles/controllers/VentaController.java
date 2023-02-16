@@ -59,6 +59,7 @@ public class VentaController {
      * @param newVenta - The newVenta object updated
      * @return - The newVenta updated
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/venta/{id_venta}")
     public Ventas updateVenta(@PathVariable("id_venta") final String id_venta, @RequestBody Ventas newVenta) throws VentasNotFoundException{
         return ventasService.updateVenta(Integer.parseInt(id_venta), newVenta);
@@ -69,6 +70,7 @@ public class VentaController {
      *
      * @param id_venta - The id of the venta to delete
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/venta/{id_venta}")
     public void deleteVenta(@PathVariable("id_venta") final int id_venta) {
         ventasService.deleteVenta(id_venta);
